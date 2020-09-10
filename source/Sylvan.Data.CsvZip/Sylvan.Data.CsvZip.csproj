@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
+    <VersionPrefix>0.1.0</VersionPrefix>
+    <VersionSuffix>B0001</VersionSuffix>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Sylvan.Data.Csv" Version="0.6.4-B0001" />
+  </ItemGroup>
+
+</Project>
