@@ -11,7 +11,7 @@
     <PackageLicenseFile>license.txt</PackageLicenseFile>
     <LangVersion>8.0</LangVersion>
 
-    <RepositoryUrl>https://github.com/MarkPflug/Sylvan</RepositoryUrl>
+    <RepositoryUrl>https://github.com/MarkPflug/Sylvan.Data.CsvZip</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageProjectUrl>$(RepositoryUrl)</PackageProjectUrl>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
