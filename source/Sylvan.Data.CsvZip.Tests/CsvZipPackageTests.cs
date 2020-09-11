@@ -1,3 +1,5 @@
+using System.Data.Common;
+using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using Xunit;
@@ -39,6 +41,21 @@ namespace Sylvan.Data.Csv
                 var state = dr.GetString(0);
                 var zip = dr.GetString(1);
             }
+        }
+
+        [Fact(Skip = "uses local database")]
+        public void DbTest()
+        {
+            var csb = new SqlConnectionStringBuilder { DataSource = ".", InitialCatalog = "Sylvan", IntegratedSecurity = true };
+            var conn = (DbConnection)new SqlConnection(csb.ConnectionString);
+            conn.Open();
+            var cmd = conn.CreateCommand();
+            cmd.CommandText = "select * from State";
+            var reader = cmd.ExecuteReader();
+
+            using var csvz = CsvZipPackage.Create("data.csvz");
+            var entry = csvz.CreateEntry("states");
+            entry.WriteData(reader);
         }
     }
 }

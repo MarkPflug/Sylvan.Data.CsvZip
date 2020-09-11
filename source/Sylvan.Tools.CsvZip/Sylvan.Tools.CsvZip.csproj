@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    
+    <PackAsTool>true</PackAsTool>
+    <ToolCommandName>sysinfo</ToolCommandName>
+
+    <VersionPrefix>0.1.0</VersionPrefix>
+    <VersionSuffix>B0001</VersionSuffix>
+    <Title>Sylvan CSVZ tool.</Title>
+    <Description>A .NET global tool to create, import and export CSVZ files.</Description>
+    <PackageTags>csvz;csv;dotnet;global;tool</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.CommandLine" Version="2.0.0-beta1.20371.2" />
+  </ItemGroup>
+
+</Project>

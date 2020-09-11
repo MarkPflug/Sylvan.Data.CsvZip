@@ -202,7 +202,7 @@ namespace Sylvan.Data.Csv
                 tablesEntry = zip.CreateEntry(TablesMetaEntryName);
             }
             {
-                var stream = tablesEntry.Open();
+                using var stream = tablesEntry.Open();
                 stream.SetLength(0);
                 using var tw = new StreamWriter(stream, Encoding.UTF8);
                 using var csv = new CsvWriter(tw);
@@ -233,7 +233,7 @@ namespace Sylvan.Data.Csv
                 columnsEntry = zip.CreateEntry(ColumnsMetaEntryName);
             }
             {
-                var stream = columnsEntry.Open();
+                using var stream = columnsEntry.Open();
                 stream.SetLength(0);
                 using var tw = new StreamWriter(stream, Encoding.UTF8);
                 using var csv = new CsvWriter(tw);
@@ -407,15 +407,20 @@ namespace Sylvan.Data.Csv
                     throw new InvalidOperationException();
 
                 entry = pkg.zip.CreateEntry(name);
-                using var stream = entry.Open();
-                using var tw = new StreamWriter(stream, Encoding.UTF8);
-                using var csv = new CsvDataWriter(tw);
-                var count = csv.Write(data);
-                tw.Flush();
+                long length;
+                long count;
+                using (var stream = entry.Open())
+                using (var tw = new StreamWriter(stream, Encoding.UTF8))
+                using (var csv = new CsvDataWriter(tw))
+                {
+                    count = csv.Write(data);
+                    tw.Flush();
+                    length = stream.Length;
+                }
                 var table = new TableInfo
                 {
                     filename = name,
-                    bytes = stream.Length,
+                    bytes = length,
                     colCount = data.FieldCount,
                     rowCount = count,
                 };

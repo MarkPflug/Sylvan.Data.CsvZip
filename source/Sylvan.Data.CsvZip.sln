@@ -13,6 +13,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{BF06D9DB
 		..\Directory.Build.targets = ..\Directory.Build.targets
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sylvan.Tools.CsvZip", "Sylvan.Tools.CsvZip\Sylvan.Tools.CsvZip.csproj", "{6F010038-F149-425C-AC15-AB4BF4F1E2FC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,18 @@ Global
 		{8C92CAF2-BDDC-4E48-8A72-960C8B8512DC}.Release|x64.Build.0 = Release|Any CPU
 		{8C92CAF2-BDDC-4E48-8A72-960C8B8512DC}.Release|x86.ActiveCfg = Release|Any CPU
 		{8C92CAF2-BDDC-4E48-8A72-960C8B8512DC}.Release|x86.Build.0 = Release|Any CPU
+		{6F010038-F149-425C-AC15-AB4BF4F1E2FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F010038-F149-425C-AC15-AB4BF4F1E2FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F010038-F149-425C-AC15-AB4BF4F1E2FC}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{6F010038-F149-425C-AC15-AB4BF4F1E2FC}.Debug|x64.Build.0 = Debug|Any CPU
+		{6F010038-F149-425C-AC15-AB4BF4F1E2FC}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6F010038-F149-425C-AC15-AB4BF4F1E2FC}.Debug|x86.Build.0 = Debug|Any CPU
+		{6F010038-F149-425C-AC15-AB4BF4F1E2FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F010038-F149-425C-AC15-AB4BF4F1E2FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F010038-F149-425C-AC15-AB4BF4F1E2FC}.Release|x64.ActiveCfg = Release|Any CPU
+		{6F010038-F149-425C-AC15-AB4BF4F1E2FC}.Release|x64.Build.0 = Release|Any CPU
+		{6F010038-F149-425C-AC15-AB4BF4F1E2FC}.Release|x86.ActiveCfg = Release|Any CPU
+		{6F010038-F149-425C-AC15-AB4BF4F1E2FC}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
