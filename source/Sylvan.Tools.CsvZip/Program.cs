@@ -92,7 +92,7 @@ namespace Sylvan.Tools.CsvZip
                 entry.WriteData(data);
                 Console.WriteLine(sw.Elapsed.ToString());
             }
-            Console.WriteLine("Done.")
+            Console.WriteLine("Done.");
             return 0;
         }
     }
