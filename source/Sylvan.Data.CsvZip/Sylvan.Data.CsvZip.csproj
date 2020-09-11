@@ -4,6 +4,8 @@
     <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
     <VersionPrefix>0.1.0</VersionPrefix>
     <VersionSuffix>B0001</VersionSuffix>
+    <Description>A .NET library implementing the csvz specification.</Description>
+    <PackageTags>csvz;data;datareader;ADO.NET</PackageTags>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
