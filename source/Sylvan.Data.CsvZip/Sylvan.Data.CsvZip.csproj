@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Sylvan.Data.Csv" Version="0.7.0" />
+    <PackageReference Include="Sylvan.Data.Csv" Version="0.7.2" />
   </ItemGroup>
 
 </Project>

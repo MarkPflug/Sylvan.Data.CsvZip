@@ -7,7 +7,7 @@
     <PackAsTool>true</PackAsTool>
     <ToolCommandName>csvz</ToolCommandName>
 
-    <VersionPrefix>0.1.0</VersionPrefix>
+    <VersionPrefix>0.1.1</VersionPrefix>
     <Title>Sylvan CSVZ tool.</Title>
     <Description>A .NET global tool to create, import and export CSVZ files.</Description>
     <PackageTags>csvz;csv;dotnet;global;tool</PackageTags>
@@ -15,7 +15,7 @@
 
   <ItemGroup>
     <PackageReference Include="Sylvan.Data" Version="0.1.0-B0008" />
-    <PackageReference Include="Sylvan.Data.Csv" Version="0.7.0" />
+    <PackageReference Include="Sylvan.Data.Csv" Version="0.7.2" />
     <PackageReference Include="System.CommandLine" Version="2.0.0-beta1.20371.2" />
   </ItemGroup>
 
