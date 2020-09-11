@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Sylvan.Tools.CsvZip": {
+      "commandName": "Project",
+      "commandLineArgs": "--dir c:\\test\\"
+    }
+  }
+}
