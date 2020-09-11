@@ -1,9 +1,9 @@
 # Sylvan.Data.CsvZip
 A .NET implementation of the [csvz](https://github.com/secretGeek/csvz) specification.
 
-_Sylvan.Data.CsvZip_ is a library for programatically creating and reading csvz files.
+_Sylvan.Data.CsvZip_ is a library for programatically creating and reading `.csvz` files.
 
-_Sylvan.Tools.CsvZip_ is a .NET global tool for creating csvz files from the commandline.
+_Sylvan.Tools.CsvZip_ is a .NET global tool for creating `.csvz` files from the commandline.
 
 ## Sylvan.Data.CsvZip Library
 
@@ -45,6 +45,10 @@ DbDataReader reader = entry.GetDataReader();
 ```
 
 ## Sylvan.Tools.CsvZip tool
+
+A command line utility that can create `.csvz` files from the `.csv` files in a directory.
+Currently only supports creating `.csvz` files. 
+Performs schema analysis when creating `.csvz` files to identify the data types of columns to populate column metadata.
 
 ### Installation
 `dotnet tool install -g Sylvan.Data.CsvZip`
