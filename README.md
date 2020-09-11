@@ -6,6 +6,8 @@ Implementation of the [csvz](https://github.com/secretGeek/csvz) specification a
 
 Primary API is via `CsvZipPackage`.
 
+## Usage
+
 Currently supports csvz-0, csvz-meta-tables, csvz-meta-columns.
 
 ### Creating
