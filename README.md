@@ -10,6 +10,7 @@ Currently supports csvz-0, csvz-meta-tables, csvz-meta-columns.
 
 ### Creating
 ```C#
+using Sylvan.Data.Csv;
 
 var csvz = CsvZipPackage.Create("data.csvz");
 var entry = csvz.CreateEntry("states");
@@ -26,9 +27,10 @@ entry.WriteData(data);
 
 ### Reading
 ```C#
+using Sylvan.Data.Csv;
 
 var csvz = CsvZipPackage.Open("data.csvz");
-var entry = csvz.Get("states");
+var entry = csvz.GetEntry("states");
 // reader will expose a compatible schema (`GetColumnSchema`) as was written.
 // So common bulk copy tools can be used to quickly load it into a different database provider
 // with an equivalent schema.
