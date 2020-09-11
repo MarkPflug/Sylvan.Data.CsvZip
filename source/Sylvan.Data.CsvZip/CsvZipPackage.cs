@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data.Common;
 using System.IO;
 using System.IO.Compression;
@@ -154,6 +155,7 @@ namespace Sylvan.Data.Csv
                                     published = csv.ReadDateTime(publishedIdx),
                                     source = csv.ReadString(sourceIdx),
                                 };
+                            c.Init();
                             this.columns.Add(c);
                         }
                     }
@@ -278,23 +280,35 @@ namespace Sylvan.Data.Csv
             public string? source;
         }
 
-        class ColumnInfo
+        class ColumnInfo : DbColumn
         {
-            public string? filename;
-            public string? column;
-            public int? ordinal;
-            public string? type;
-            public bool? nullable;
-            public int? maxLength;
-            public bool? unique;
-            public bool? primaryKey;
-            public string? description;
-            public string? units;
-            public DateTime? published;
-            public string? source;
+            internal string? filename;
+            internal string? column;
+            internal int? ordinal;
+            internal string? type;
+            internal bool? nullable;
+            internal int? maxLength;
+            internal bool? unique;
+            internal bool? primaryKey;
+            internal string? description;
+            internal string? units;
+            internal DateTime? published;
+            internal string? source;
+
+            internal void Init()
+            {
+                this.BaseTableName = filename;
+                this.ColumnName = column;
+                this.ColumnOrdinal = ordinal;
+                this.DataTypeName = type;
+                this.AllowDBNull = nullable;
+                this.ColumnSize = maxLength;
+                this.IsUnique = unique;
+                this.IsKey = primaryKey;
+            }
         }
 
-        public class Entry
+        public class Entry : IDbColumnSchemaGenerator
         {
             readonly CsvZipPackage pkg;
             readonly string name;
@@ -305,6 +319,27 @@ namespace Sylvan.Data.Csv
                 this.pkg = pkg;
                 this.name = name;
                 this.isNew = isNew;
+            }
+
+            // todo: check this annotation when nullability lands in BCL. Might have to throw instead.
+            public ReadOnlyCollection<DbColumn>? GetColumnSchema()
+            {
+                var entry = pkg.zip.GetEntry(name);
+                if (entry == null)
+                    return null;
+
+                var cols =
+                    pkg.columns
+                    .Where(c => StringComparer.OrdinalIgnoreCase.Equals(this.name, c.filename))
+                    .OrderBy(c => c.ColumnOrdinal)
+                    .Cast<DbColumn>()
+                    .ToList();
+
+                if (cols.Any())
+                {
+                    return new ReadOnlyCollection<DbColumn>(cols);
+                }
+                return null;
             }
 
             public string Name => Path.GetFileNameWithoutExtension(name);
@@ -404,6 +439,7 @@ namespace Sylvan.Data.Csv
                         source = null,
                         units = null,
                     };
+                    ci.Init();
                     pkg.columns.Add(ci);
                 }
 
@@ -416,8 +452,12 @@ namespace Sylvan.Data.Csv
                 if (entry == null)
                     throw new InvalidOperationException();
 
+                var schema = this.GetColumnSchema();
+
+                var opts = new CsvDataReaderOptions { Schema = schema == null ? null : new CsvSchema(schema) };
+
                 var reader = new StreamReader(entry.Open());
-                return CsvDataReader.Create(reader);
+                return CsvDataReader.Create(reader, opts);
             }
         }
 
