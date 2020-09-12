@@ -24,13 +24,13 @@ namespace Sylvan.Data.Csv
             }
 
             var c = csvz.Entries.Count();
-            var e = csvz.GetEntry("states");
+            var e = csvz.FindEntry("states");
             Assert.Equal("states", e.Name);
             Assert.Equal(5, e.RowCount);
             Assert.Equal(2, e.ColumnCount);
             Assert.Equal(77, e.Length);
 
-            var postalEntry = csvz.GetEntry("postal");
+            var postalEntry = csvz.FindEntry("postal");
             var ps = postalEntry.GetColumnSchema();
 
             Assert.NotNull(ps);

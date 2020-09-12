@@ -39,7 +39,7 @@ namespace Sylvan.Data.Csv
         public static string? ReadString(this CsvDataReader csv, int idx)
         {
             return
-                idx < 0 || csv.IsDBNull(idx)
+                idx < 0 || csv.IsDBNull(idx) || csv.GetString(idx) == string.Empty
                 ? null
                 : csv.GetString(idx);
         }
@@ -47,7 +47,7 @@ namespace Sylvan.Data.Csv
         public static long? ReadInt64(this CsvDataReader csv, int idx)
         {
             return
-                idx < 0 || csv.IsDBNull(idx)
+                idx < 0 || csv.IsDBNull(idx) || csv.GetString(idx) == string.Empty
                 ? (long?)null
                 : csv.GetInt64(idx);
         }
@@ -55,7 +55,7 @@ namespace Sylvan.Data.Csv
         public static int? ReadInt32(this CsvDataReader csv, int idx)
         {
             return
-                idx < 0 || csv.IsDBNull(idx)
+                idx < 0 || csv.IsDBNull(idx) || csv.GetString(idx) == string.Empty
                 ? (int?)null
                 : csv.GetInt32(idx);
         }
@@ -63,7 +63,7 @@ namespace Sylvan.Data.Csv
         public static bool? ReadBoolean(this CsvDataReader csv, int idx)
         {
             return
-                idx < 0 || csv.IsDBNull(idx)
+                idx < 0 || csv.IsDBNull(idx) || csv.GetString(idx) == string.Empty
                 ? (bool?)null
                 : csv.GetBoolean(idx);
         }
@@ -71,7 +71,7 @@ namespace Sylvan.Data.Csv
         public static DateTime? ReadDateTime(this CsvDataReader csv, int idx)
         {
             return
-                idx < 0 || csv.IsDBNull(idx)
+                idx < 0 || csv.IsDBNull(idx) || csv.GetString(idx) == string.Empty
                 ? (DateTime?)null
                 : csv.GetDateTime(idx);
         }

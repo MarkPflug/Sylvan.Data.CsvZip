@@ -68,7 +68,7 @@ namespace Sylvan.Data.Csv
                 {
                     try
                     {
-                        var sw = new StreamReader(te.Open());
+                        using var sw = new StreamReader(te.Open());
                         var tablesCsv = CsvDataReader.Create(sw, Options);
                         // todo: handle extended metadata? punt for now.
                         var filenameIdx = tablesCsv.GetOrdinal("filename");
@@ -120,7 +120,7 @@ namespace Sylvan.Data.Csv
                 {
                     try
                     {
-                        var sw = new StreamReader(te.Open());
+                        using var sw = new StreamReader(te.Open());
                         var csv = CsvDataReader.Create(sw, Options);
                         // todo: handle extended metadata? punt for now.
                         var filenameIdx = csv.GetOrdinal("filename");
@@ -180,10 +180,10 @@ namespace Sylvan.Data.Csv
             return new Entry(this, name, true);
         }
 
-        public Entry GetEntry(string name)
+        public Entry? FindEntry(string name)
         {
             name = NormalizeName(name);
-            if (zip.GetEntry(name) == null) throw new ArgumentOutOfRangeException(nameof(name));
+            if (zip.GetEntry(name) == null) return null;
 
             return new Entry(this, name, false);
         }
@@ -396,6 +396,8 @@ namespace Sylvan.Data.Csv
                 {
                     isNew = true;
                 }
+
+                pkg.UpdateMetadata();
             }
 
             public void WriteData(DbDataReader data)
