@@ -18,6 +18,7 @@ namespace Sylvan.Tools.CsvZip
 
             public override string ToString() => sw.ToString();
         }
+
         [Fact]
         public void Test1()
         {
@@ -29,6 +30,8 @@ namespace Sylvan.Tools.CsvZip
             Program.Main("remove", "--file", "test.zip", "--name", "states.csv");
             Program.Main("add", "--file", "test.zip", "--name", "states.csv");
             Program.Main("add", "--file", "test.zip", "--name", "states.csv", "--overwrite");
+            Program.Main("tables", "--file", "test.zip");
+            Program.Main("columns", "--file", "test.zip", "--name", "states.csv");
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Sylvan.Data;
+﻿using ConsoleTables;
+using Sylvan.Data;
 using Sylvan.Data.Csv;
 using System;
 using System.Collections;
@@ -8,6 +9,7 @@ using System.CommandLine.Invocation;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 
 namespace Sylvan.Tools.CsvZip
 {
@@ -52,6 +54,7 @@ namespace Sylvan.Tools.CsvZip
                 )
             };
             addCmd.Handler = CommandHandler.Create<string, string, bool>(Add);
+            rootCommand.Add(addCmd);
 
             var remCmd = new Command("remove")
             {
@@ -67,11 +70,84 @@ namespace Sylvan.Tools.CsvZip
                 )
             };
             remCmd.Handler = CommandHandler.Create<string, string>(Remove);
-
-            rootCommand.Add(addCmd);
             rootCommand.Add(remCmd);
 
+            var tablesCmd = new Command("tables")
+            {
+                new Option<string>(
+                    "--file",
+                    getDefaultValue: () => null,
+                    description: "The csv file to list table."
+                )               
+            };
+            tablesCmd.Handler = CommandHandler.Create<string>(Tables);
+            rootCommand.Add(tablesCmd);
+
+            var columnsCmd = new Command("columns")
+            {
+                new Option<string>(
+                    "--file",
+                    getDefaultValue: () => null,
+                    description: "The csv file from which to list columns."
+                ),
+                 new Option<string>(
+                    "--name",
+                    getDefaultValue: () => null,
+                    description: "The table from which to list columns."
+                )
+            };
+            columnsCmd.Handler = CommandHandler.Create<string, string>(Columns);
+            rootCommand.Add(columnsCmd);
+
             rootCommand.Invoke(args);
+        }
+
+        static int Tables(string file)
+        {
+            if (!File.Exists(file))
+            {
+                Error("File not found: " + file);
+                return 1;
+            }
+
+            using var csvz = CsvZipPackage.Open(file);
+            
+            var table = new ConsoleTable("Table", "Size", "Rows", "Columns");
+            table.Configure(o => o.NumberAlignment = Alignment.Right);
+            foreach(var entry in csvz.Entries)
+            {
+                table.AddRow(entry.Name, entry.Length, entry.RowCount, entry.ColumnCount);
+            }
+
+            table.Write(Format.Minimal);
+
+            return 0;
+        }
+
+        static int Columns(string file, string name)
+        {
+            if (!File.Exists(file))
+            {
+                Error("File not found: " + file);
+                return 1;
+            }
+
+            using var csvz = CsvZipPackage.Open(file);
+
+            var entry = csvz.FindEntry(name);
+
+            var cols = entry.GetColumnSchema();
+
+            var table = new ConsoleTable("Column", "Ordinal", "Type", "Nullable");
+            table.Configure(o => o.NumberAlignment = Alignment.Right);
+            foreach (var col in cols.OrderBy(c => c.ColumnOrdinal))
+            {
+                table.AddRow(col.ColumnName, col.ColumnOrdinal, col.DataTypeName, col.AllowDBNull);
+            }
+
+            table.Write(Format.Minimal);
+
+            return 0;
         }
 
         static int Add(string file, string name, bool overwrite)
