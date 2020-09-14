@@ -6,24 +6,12 @@ namespace Sylvan.Tools.CsvZip
 {
     public class MainTests
     {
-        class SWDebug
-        {
-            StringWriter sw;
-            public SWDebug(StringWriter sw)
-            {
-                this.sw = sw;
-            }
+        const string NotConcurrent = "These tests cannot be run concurrently";
 
-            public string Output => sw.ToString();
-
-            public override string ToString() => sw.ToString();
-        }
-
-        [Fact]
+        [Fact(Skip = NotConcurrent)]
         public void Test1()
         {
             var sw = new StringWriter();
-            var swd = new SWDebug(sw);
             Console.SetOut(sw);
             Console.SetError(sw);
             Program.Main("--dir", ".", "--file", "test.zip");
@@ -34,11 +22,10 @@ namespace Sylvan.Tools.CsvZip
             Program.Main("columns", "--file", "test.zip", "--name", "states.csv");
         }
 
-        [Fact]
+        [Fact(Skip = NotConcurrent)]
         public void Test2()
         {
             var sw = new StringWriter();
-            var swd = new SWDebug(sw);
             Console.SetOut(sw);
             Console.SetError(sw);
             Program.Main(".", "test.zip");
