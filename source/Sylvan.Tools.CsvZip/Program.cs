@@ -2,14 +2,12 @@
 using Sylvan.Data;
 using Sylvan.Data.Csv;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.CommandLine;
 using System.CommandLine.Invocation;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
 
 namespace Sylvan.Tools.CsvZip
 {
@@ -20,12 +18,12 @@ namespace Sylvan.Tools.CsvZip
         {
             var rootCommand = new RootCommand
             {
-                new Option<string>(
+                new Argument<string>(
                     "--dir",
                     getDefaultValue: () => ".",
                     description: "The directory to package into a CSVZ"
                 ),
-                new Option<string>(
+                new Argument<string>(
                     "--file",
                     getDefaultValue: () => null,
                     description: "The name of the target CSVZ file"
@@ -37,12 +35,12 @@ namespace Sylvan.Tools.CsvZip
 
             var addCmd = new Command("add")
             {
-                 new Option<string>(
+                 new Argument<string>(
                     "--file",
                     getDefaultValue: () => null,
                     description: "The csv file from which to remove a table."
                 ),
-                new Option<string>(
+                new Argument<string>(
                     "--name",
                     getDefaultValue: () => null,
                     description: "The name of the table to remove."
@@ -58,12 +56,12 @@ namespace Sylvan.Tools.CsvZip
 
             var remCmd = new Command("remove")
             {
-                new Option<string>(
+                new Argument<string>(
                     "--file",
                     getDefaultValue: () => null,
                     description: "The csv file from which to remove a table."
                 ),
-                new Option<string>(
+                new Argument<string>(
                     "--name",
                     getDefaultValue: () => null,
                     description: "The name of the table to remove."
@@ -74,7 +72,7 @@ namespace Sylvan.Tools.CsvZip
 
             var tablesCmd = new Command("tables")
             {
-                new Option<string>(
+                new Argument<string>(
                     "--file",
                     getDefaultValue: () => null,
                     description: "The csv file to list table."
@@ -85,12 +83,12 @@ namespace Sylvan.Tools.CsvZip
 
             var columnsCmd = new Command("columns")
             {
-                new Option<string>(
+                new Argument<string>(
                     "--file",
                     getDefaultValue: () => null,
                     description: "The csv file from which to list columns."
                 ),
-                 new Option<string>(
+                 new Argument<string>(
                     "--name",
                     getDefaultValue: () => null,
                     description: "The table from which to list columns."

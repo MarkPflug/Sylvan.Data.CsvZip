@@ -33,5 +33,20 @@ namespace Sylvan.Tools.CsvZip
             Program.Main("tables", "--file", "test.zip");
             Program.Main("columns", "--file", "test.zip", "--name", "states.csv");
         }
+
+        [Fact]
+        public void Test2()
+        {
+            var sw = new StringWriter();
+            var swd = new SWDebug(sw);
+            Console.SetOut(sw);
+            Console.SetError(sw);
+            Program.Main(".", "test.zip");
+            Program.Main("remove", "test.zip", "states.csv");
+            Program.Main("add", "test.zip", "states.csv");
+            Program.Main("add", "test.zip", "states.csv", "--overwrite");
+            Program.Main("tables", "test.zip");
+            Program.Main("columns", "test.zip", "states.csv");
+        }
     }
 }
